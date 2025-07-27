@@ -135,8 +135,9 @@ chmod +x coze-studio.sh
 
 **GitHub 加速：**
 ```
-原始地址: https://github.com/coze-dev/coze-studio.git
-加速地址: https://ghfast.top/https://github.com/coze-dev/coze-studio.git
+仓库地址和加速镜像可通过 config/settings.conf 配置：
+- COZE_REPO_URL: Coze Studio 仓库地址
+- GITHUB_MIRROR_URL: GitHub 加速镜像服务地址
 ```
 
 **Docker 镜像加速：**

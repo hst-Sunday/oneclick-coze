@@ -26,6 +26,9 @@ main() {
     # Check shell compatibility first
     check_shell
     
+    # Load configuration
+    load_config
+    
     # Detect language
     detect_language
     

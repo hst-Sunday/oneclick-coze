@@ -178,7 +178,7 @@ select_network_environment() {
     case "$network_choice" in
         1)
             # Domestic environment - use mirror and configure Docker
-            REPO_URL="https://ghfast.top/https://github.com/coze-dev/coze-studio.git"
+            REPO_URL="${GITHUB_MIRROR_URL}/${COZE_REPO_URL}"
             msg "network_env_selected" "domestic"
             echo
             
@@ -199,7 +199,7 @@ select_network_environment() {
             ;;
         2)
             # International environment - use original URLs and restore Docker defaults
-            REPO_URL="https://github.com/coze-dev/coze-studio.git"
+            REPO_URL="$COZE_REPO_URL"
             msg "network_env_selected" "international"
             echo
             

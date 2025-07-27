@@ -19,7 +19,11 @@ readonly NC='\033[0m' # No Color
 # Global variables
 SCRIPT_LANG=""
 COZE_INSTALL_DIR=""
-REPO_URL="https://github.com/coze-dev/coze-studio.git"  # Default repository URL
+
+# Configuration variables (loaded from settings.conf)
+COZE_REPO_URL=""
+GITHUB_MIRROR_URL=""
+REPO_URL=""  # Will be set dynamically based on network environment
 
 # Check if we're running in bash
 check_shell() {
@@ -117,4 +121,39 @@ wait_for_continue() {
         echo -e "${CYAN}Press any key to continue${NC}"
     fi
     read -n 1
+}
+
+# Load configuration from settings.conf
+load_config() {
+    local config_file="$SCRIPT_DIR/config/settings.conf"
+    
+    if [[ -f "$config_file" ]]; then
+        # Source the config file to load variables
+        source "$config_file"
+        
+        # Set default REPO_URL to the configured repository
+        if [[ -n "$COZE_REPO_URL" ]]; then
+            REPO_URL="$COZE_REPO_URL"
+        else
+            # Fallback default if not configured
+            COZE_REPO_URL="https://github.com/coze-dev/coze-studio.git"
+            REPO_URL="$COZE_REPO_URL"
+        fi
+        
+        # Set default mirror URL if not configured
+        if [[ -z "$GITHUB_MIRROR_URL" ]]; then
+            GITHUB_MIRROR_URL="https://ghfast.top"
+        fi
+    else
+        # Use fallback defaults if config file doesn't exist
+        COZE_REPO_URL="https://github.com/coze-dev/coze-studio.git"
+        GITHUB_MIRROR_URL="https://ghfast.top"
+        REPO_URL="$COZE_REPO_URL"
+        
+        if [[ "$SCRIPT_LANG" == "zh" ]]; then
+            echo -e "${YELLOW}警告: 配置文件不存在，使用默认设置${NC}"
+        else
+            echo -e "${YELLOW}Warning: Config file not found, using default settings${NC}"
+        fi
+    fi
 }
