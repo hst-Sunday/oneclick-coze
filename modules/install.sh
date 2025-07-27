@@ -8,8 +8,16 @@ configure_model() {
     msg "select_template"
     echo
     
+    # Determine which directory variable to use (install_dir during installation, COZE_INSTALL_DIR after)
+    local working_dir
+    if [[ -n "$install_dir" ]]; then
+        working_dir="$install_dir"
+    else
+        working_dir="$COZE_INSTALL_DIR"
+    fi
+    
     # Check if Coze Studio installation directory exists
-    if [[ ! -d "$COZE_INSTALL_DIR" ]]; then
+    if [[ ! -d "$working_dir" ]]; then
         if [[ "$SCRIPT_LANG" == "zh" ]]; then
             echo -e "${RED}错误: Coze Studio 安装目录不存在${NC}"
         else
@@ -18,10 +26,10 @@ configure_model() {
         return 1
     fi
     
-    cd "$COZE_INSTALL_DIR"
+    cd "$working_dir"
     
     # Find template files
-    local template_dir="$COZE_INSTALL_DIR/backend/conf/model/template"
+    local template_dir="$working_dir/backend/conf/model/template"
     local templates=()
     local template_names=()
     
@@ -79,7 +87,7 @@ configure_model() {
     local selected_name="${template_names[$selected_index]}"
     
     # Generate target file path
-    local target_file="$COZE_INSTALL_DIR/backend/conf/model/${selected_name}.yaml"
+    local target_file="$working_dir/backend/conf/model/${selected_name}.yaml"
     
     # Check if target file already exists
     if [[ -f "$target_file" ]]; then
