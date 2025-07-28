@@ -30,19 +30,19 @@ Coze Studio 一键管理工具是一个基于 Bash 的交互式命令行工具�
 
 ### 🖥️ 系统要求
 
-| 组件 | 要求 |
-|------|------|
-| **操作系统** | Linux (Ubuntu 18.04+, Debian 9+, CentOS 7+) |
-| **Shell** | Bash 4.0+ |
-| **内存** | 4GB+ RAM |
-| **存储** | 10GB+ 可用空间 |
-| **网络** | 互联网连接 |
+| 组件 | Linux | Windows 11 |
+|------|-------|------------|
+| **操作系统** | Ubuntu 18.04+, Debian 9+, CentOS 7+ | Windows 11 + WSL2 (推荐) 或 Git Bash |
+| **Shell** | Bash 4.0+ | WSL2 Bash 或 Git Bash |
+| **内存** | 4GB+ RAM | 8GB+ RAM |
+| **存储** | 10GB+ 可用空间 | 20GB+ 可用空间 |
+| **网络** | 互联网连接 | 互联网连接 |
 
 #### 必需依赖
 - Git
 - Docker & Docker Compose
 - curl
-- sudo 权限
+- sudo 权限 (Linux) 或管理员权限 (Windows)
 
 #### 域名配置额外要求
 - Ubuntu 18.04+ 或 Debian 9+
@@ -64,9 +64,21 @@ chmod +x coze-studio.sh
 
 #### 2. 运行工具
 
+**Linux 系统:**
 ```bash
 ./coze-studio.sh
 ```
+
+**Windows 11 系统:**
+```bash
+# WSL2 环境 (推荐)
+./coze-studio.sh
+
+# Git Bash 环境
+./coze-studio-windows.sh
+```
+
+> 💡 **Windows 用户提示**: 推荐使用 WSL2 获得最佳兼容性。详细安装指南请参考 [Windows 11 安装指南](docs/WINDOWS_INSTALL.md)
 
 #### 3. 选择语言
 
@@ -238,6 +250,22 @@ A: 工具会自动重启 coze-server，如果仍然不生效，请手动重启�
 ```bash
 cd coze-studio/docker
 docker compose --profile "*" restart coze-server
+```
+
+#### Q: Windows 环境下运行失败？
+A: 请参考 [Windows 11 安装指南](docs/WINDOWS_INSTALL.md)，常见解决方案：
+- 确保 Docker Desktop 正在运行
+- 使用管理员权限运行 Git Bash
+- 推荐使用 WSL2 环境获得更好的兼容性
+
+#### Q: WSL2 中 Docker 无法启动？
+A: 检查 Docker Desktop WSL2 集成：
+```bash
+# 检查 WSL2 版本
+wsl --list --verbose
+
+# 重启 Docker Desktop
+# 设置 -> Resources -> WSL Integration -> 启用对应的 Linux 发行版
 ```
 
 ### 🔧 故障排除
