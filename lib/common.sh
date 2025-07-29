@@ -142,12 +142,12 @@ load_config() {
         
         # Set default mirror URL if not configured
         if [[ -z "$GITHUB_MIRROR_URL" ]]; then
-            GITHUB_MIRROR_URL="https://ghfast.top"
+            GITHUB_MIRROR_URL=""
         fi
     else
         # Use fallback defaults if config file doesn't exist
         COZE_REPO_URL="https://github.com/coze-dev/coze-studio.git"
-        GITHUB_MIRROR_URL="https://ghfast.top"
+        GITHUB_MIRROR_URL=""
         REPO_URL="$COZE_REPO_URL"
         
         if [[ "$SCRIPT_LANG" == "zh" ]]; then

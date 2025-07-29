@@ -178,7 +178,7 @@ select_network_environment() {
     case "$network_choice" in
         1)
             # Domestic environment - use mirror and configure Docker
-            REPO_URL="${GITHUB_MIRROR_URL}/${COZE_REPO_URL}"
+            REPO_URL="${GITHUB_MIRROR_URL}${COZE_REPO_URL}"
             msg "network_env_selected" "domestic"
             echo
             
